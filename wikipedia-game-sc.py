@@ -13,6 +13,7 @@ def fetch_links(page):
     for title in sorted(links.keys()):
         links_list.append(title)
         
+    print(links_list)
     return links_list
 
 #IN CLASS: Finish the definition of the wikipedia_game_solver using a Breadth-First-Search Traversal
