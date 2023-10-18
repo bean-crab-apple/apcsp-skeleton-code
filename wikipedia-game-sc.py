@@ -23,13 +23,30 @@ def wikipedia_game_solver(start_page, target_page):
     # FINISH THE CODE HERE
     visited = []
     queue = Queue()
+    path = []
+    parent = {}
 
     queue.put(start_page.title)
-    visited.append(start_page.title)
 
     while not queue.empty():
-        fetch_links(queue)
-        # ????????????????
+        current_page_title = queue.get()
+        if current_page_title == target_page.title:
+            break
+        current_page = wiki_wiki.page(current_page_title)
+        current_links = fetch_links(current_page)
+        visited.append(current_page.title)
+        for link in current_links:
+            if link not in visited:
+                queue.put(link)
+                parent[link] = current_page_title
+    
+    child = target_page.title
+
+    while child != start_page.title:
+        path.append(child)
+        child = parent[child]
+    path.append(start_page.title)
+    path.reverse()
 
     end_time = time.time()
     print("This algorithm took", end_time-start_time, "seconds to run!")
@@ -37,8 +54,7 @@ def wikipedia_game_solver(start_page, target_page):
     return path
 
 # Example usage:
-start_page = wiki_wiki.page('Nina Tandon')
-target_page = wiki_wiki.page('Italian language')
+start_page = wiki_wiki.page('Applied Magnetics Corporation')
+target_page = wiki_wiki.page('24 Hours of Lemons')
 path = wikipedia_game_solver(start_page, target_page)
 print("Shortest path:", path)
-
