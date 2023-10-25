@@ -12,8 +12,7 @@ def fetch_links(page):
     links = page.links
     for title in sorted(links.keys()):
         links_list.append(title)
-        
-    print(links_list)
+    #print(links_list)    
     return links_list
 
 #IN CLASS: Finish the definition of the wikipedia_game_solver using a Breadth-First-Search Traversal
@@ -55,7 +54,8 @@ def wikipedia_game_solver(start_page, target_page):
     return path
 
 # Example usage:
-start_page = wiki_wiki.page('Applied Magnetics Corporation')
-target_page = wiki_wiki.page('24 Hours of Lemons')
+start_page = wiki_wiki.page('Nina Tandon')
+target_page = wiki_wiki.page('Italian Language')
+print(str(start_page) + ", " + str(target_page))
 path = wikipedia_game_solver(start_page, target_page)
 print("Shortest path:", path)
