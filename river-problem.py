@@ -2,6 +2,13 @@ import copy
 
 # Define a function that takes in a state as a dictionary and returns True if the state meets the conditions and False if it does not
 def isValid(state):
+    if state["wolf"] == state["goat"] and state["wolf"] != state["person"]:
+        return False
+    elif state["goat"] == state["cabbage"] and state["goat"] != state["person"]:
+        return False
+    else:
+        return True
+# DONE
     
 
 # Define a function that takes in a state as a dictionary and returns a list of all valid states that can be reached from 1 move of the input state
