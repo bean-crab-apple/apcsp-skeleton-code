@@ -39,6 +39,9 @@ def wikipedia_game_solver(start_page, target_page):
             if link not in visited:
                 queue.put(link)
                 parent[link] = current_page_title
+                visited.append(link)
+            if link == target_page.title:
+                break
     
     child = target_page.title
 
@@ -55,6 +58,6 @@ def wikipedia_game_solver(start_page, target_page):
 
 # Example usage:
 start_page = wiki_wiki.page('Applied Magnetics Corporation')
-target_page = wiki_wiki.page('24 Hours of Lemons')
+target_page = wiki_wiki.page('Vance D. Brand')
 path = wikipedia_game_solver(start_page, target_page)
 print("Shortest path:", path)
