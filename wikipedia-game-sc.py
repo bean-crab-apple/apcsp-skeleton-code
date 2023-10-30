@@ -2,6 +2,8 @@ from queue import Queue
 # queues don't work! when things are alphabetically added to a queue, they work maybe for like the first 20 or so elements(maybe up to "Af..." on large pages)
 # however, the last element in the list("Z...") fails to be found when queue.get is being run
 # does the queue structure have an inherent size limit?
+# btw redirect pages also completely break the API, for example, 'Nina Tandon' links to 'Biomedical engineer' which redirects to 'Biomedical engineering' but
+# fetch_links(wiki_wiki.page('Biomedical engineer')) does not return a list containing 'Biomedical engineering'
 import wikipediaapi
 import time
 
