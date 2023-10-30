@@ -21,7 +21,7 @@ def get_next_states(state):
             same_side.append(entity)
     for entity in same_side:
         temp_state = copy.deepcopy(state)
-        temp_state[thing] = not state[thing]
+        temp_state[entity] = not state[entity]
         temp_state["person"] = not state["person"]
         if isValid(temp_state) == True:
             next_states.append(temp_state)
@@ -37,8 +37,16 @@ def get_next_states(state):
 # Define a recursive function that takes in a current_state and win_state and returns the path to those states using the Depth First Search algorithm
 # This function will need to call the function get_next_states(state), as well as itself
 def dfs(current_state, win_state):
-    Test
-    
+    if current_state == win_state:
+        return True
+    next_states = get_next_states(current_state)
+    visited_states.append(current_state)
+    for state in next_states:
+        if state not in visited_states:
+            path.append(state)
+            if dfs(state, win_state) == True:
+                return True
+            path.pop()
 # Test your code! Does it solve the river crossing riddle?
 initial_state = {
     "wolf": False,
