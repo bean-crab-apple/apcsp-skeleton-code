@@ -1,4 +1,7 @@
 from queue import Queue
+# queues don't work! when things are alphabetically added to a queue, they work maybe for like the first 20 or so elements(maybe up to "Af..." on large pages)
+# however, the last element in the list("Z...") fails to be found when queue.get is being run
+# does the queue structure have an inherent size limit?
 import wikipediaapi
 import time
 
@@ -11,8 +14,8 @@ def fetch_links(page):
     links_list = []
     links = page.links
     for title in sorted(links.keys()):
-        links_list.append(title)
-    print(links_list)  
+        links_list.append(title) 
+    print(links_list) 
     return links_list
 
 #IN CLASS: Finish the definition of the wikipedia_game_solver using a Breadth-First-Search Traversal
@@ -27,21 +30,21 @@ def wikipedia_game_solver(start_page, target_page):
     parent = {}
 
     queue.put(start_page.title)
+    visited.append(start_page.title)
 
     while not queue.empty():
         current_page_title = queue.get()
+        fetch_links(wiki_wiki.page(current_page_title))
         if current_page_title == target_page.title:
             break
         visited.append(current_page_title)
         current_page = wiki_wiki.page(current_page_title)
-        current_links = fetch_links(current_page)
-        for link in current_links:
+        next_level = fetch_links(current_page)
+
+        for link in next_level:
             if link not in visited:
                 queue.put(link)
                 parent[link] = current_page_title
-                visited.append(link)
-            if link == target_page.title:
-                break
     
     child = target_page.title
 
@@ -57,7 +60,7 @@ def wikipedia_game_solver(start_page, target_page):
     return path
 
 # Example usage:
-start_page = wiki_wiki.page('Applied Magnetics Corporation')
-target_page = wiki_wiki.page('Vance D. Brand')
+start_page = wiki_wiki.page('Apollo 11')
+target_page = wiki_wiki.page('Zond program')
 path = wikipedia_game_solver(start_page, target_page)
 print("Shortest path:", path)
